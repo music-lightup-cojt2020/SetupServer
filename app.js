@@ -18,6 +18,8 @@ console.log(process.env);
 var client_id = process.env.SPOTIFY_CLIENT_ID; // Your client id
 var client_secret = process.env.SPOTIFY_CLIENT_SECRET; // Your secret
 var redirect_uri = process.env.SPOTIFY_REDIRECT_URI; // Your redirect uri
+const cache_dir = "";
+const cache_filename = ".cache";
 
 /**
  * Generates a random string containing numbers and letters
@@ -94,8 +96,6 @@ app.get('/callback', function(req, res) {
         var access_token = body.access_token,
             refresh_token = body.refresh_token;
 
-        const cache_dir = "";
-        const cache_filename = ".cache_node";
         const fs = require('fs');
         body["expires_at"] = Math.floor((Date.now() + body["expires_in"]) / 1000);
         fs.writeFileSync(cache_dir + cache_filename, JSON.stringify(body));
